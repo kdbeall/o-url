@@ -16,15 +16,15 @@ public interface StoreOperations {
 	 * @param url
 	 *            The value.
 	 */
-	public void add(String url, String shorturl);
+	public void add(String shorturl, String url);
 
 	/**
 	 * Looks up corresponding URL in store.
 	 * 
-	 * @param url
+	 * @param shorturl
 	 *            A shortened URL.
-	 * @return The lengthy URL.
+	 * @return The lengthy URL or null if shorturl doesn't exist.
 	 */
-	public String get(String url);
+	public String get(String shorturl);
 
 }
