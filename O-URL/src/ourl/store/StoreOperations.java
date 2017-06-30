@@ -9,13 +9,14 @@ package ourl.store;
 public interface StoreOperations {
 
 	/**
-	 * Adds a URL to the store. Generate a new shortened URL.
+	 * Add a (url, shorturl) pair to the redis database.
 	 * 
+	 * @param shorturl
+	 *            The key.
 	 * @param url
-	 *            A length URL to shorten.
-	 * 
+	 *            The value.
 	 */
-	public void add(String url);
+	public void add(String url, String shorturl);
 
 	/**
 	 * Looks up corresponding URL in store.
