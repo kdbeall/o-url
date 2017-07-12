@@ -11,6 +11,8 @@ import ourl.store.Store;
 
 public class Server extends NanoHTTPD {
 	private static final String HOME = "/";
+
+	// Allows us to perform operations on the Redis database.
 	private Store store;
 
 	public Server() throws IOException {
@@ -30,14 +32,15 @@ public class Server extends NanoHTTPD {
 
 		// Want user to input a url to shorten
 		if (parms.get("url") == null && session.getUri().equals(HOME)) {
-			msg += "<form action='?' method='get'>\n  <p>Your long url: <input type='text' name='url'></p>\n" + "</form>\n";
+			msg += "<form action='?' method='get'>\n  <p>Your long url: <input type='text' name='url'></p>\n"
+					+ "</form>\n";
 
 			// Handling input of url to shorten, add to storage.
 		} else if (parms.get("url") != null && session.getUri().equals(HOME)) {
 			String shorturl = Hashing.murmur3_32().hashString(parms.get("url"), StandardCharsets.UTF_8).toString();
 			store.add(shorturl, parms.get("url"));
 			msg += "<p>Added, " + parms.get("url") + " </p>";
-			msg += "<p> Short address " + shorturl + " </p>";
+			msg += "<p> Short address is localhost:8080/" + shorturl + " </p>";
 		} else if (!session.getUri().equals(HOME)) {
 			if (store.get(session.getUri().substring(1)) != null) {
 				msg += "<p> Long url is " + store.get(session.getUri().substring(1)) + " </p>";
