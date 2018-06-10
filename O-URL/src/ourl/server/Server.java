@@ -19,16 +19,12 @@ public class Server extends NanoHTTPD {
 		super(8080);
 		start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
 		store = new Store();
-		System.out.println("\nRunning! Point your browsers to http://localhost:8080/ \n");
 	}
 
 	@Override
 	public Response serve(IHTTPSession session) {
-		System.out.println("Session URI " + session.getUri());
-		System.out.println("Session query parameter string " + session.getQueryParameterString());
 		String msg = "<html><body><h1>Hello, welcome to OURL</h1>\n";
 		Map<String, String> parms = session.getParms();
-		System.out.println("Get parms " + parms.get("url"));
 
 		// Want user to input a url to shorten
 		if (parms.get("url") == null && session.getUri().equals(HOME)) {
@@ -48,7 +44,6 @@ public class Server extends NanoHTTPD {
 				msg += "<p> Resource not found </p>";
 			}
 		}
-		System.out.println("Sending");
 		return newFixedLengthResponse(msg + "</body></html>\n");
 	}
 
